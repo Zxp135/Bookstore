@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zpp.demo.Dao.Uorder">
+    <select id="getOrder"  parameterType="String" resultType="Integer">
+    select count(*) from order_info where u_id in (select u_id from user_up where u_id = #{u_id})
+    </select>
+
+    <select id="getPageOrder"  parameterType="OrderPageHelper" resultMap="pageorder">
+        select book_url , book_num, book_price,order_num,order_pay,book_name,order_time from order_info where u_id in (select u_id from user_up where u_id = #{u_id}) limit #{Page_num} , 5
+    </select>
+    <resultMap id="pageorder" type="Order">
+        <result property="book_num" column="book_num"/>
+        <result property="book_price" column="book_price"/>
+        <result property="order_pay" column="order_pay"/>
+        <result property="order_num" column="order_num"/>
+        <result property="order_time" column="order_time"/>
+        <result property="book_name" column="book_name"/>
+        <result property="book_url" column="book_url"/>
+    </resultMap>
+
+    <insert id="pushOrder" parameterType="Order" >
+        insert  into order_info values(#{order_num},#{book_name},#{book_num},#{order_pay},#{order_time},#{u_id},#{book_price},#{book_url})
+    </insert>
+    <delete id="delOrder" parameterType="String">
+        delete from order_info where order_num=#{order_num}
+    </delete>
+    <select id="getorforrname" parameterType="String" resultMap="pageorder">
+        select book_url , book_num, book_price,order_num,order_pay,book_name,order_time from order_info where book_name like #{book_name}
+    </select>
+</mapper>

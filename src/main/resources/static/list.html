@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>briup-电子商务-清单</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+	<!--  Bootstrap4 核心 CSS 文件 -->
+	<link type="text/css" rel="stylesheet" href="Resource/bootstrap/css/bootstrap.min.css">
+	<link type="text/css" rel="stylesheet" href="Resource/bootstrap/css/bootstrap-grid.min.css">
+	<link type="text/css" rel="stylesheet" href="Resource/bootstrap/css/bootstrap-reboot.min.css">
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script type="text/javascript" src="Resource/js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+	<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+	<script type="text/javascript" src="Resource/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+	<script type="text/javascript" src="Resource/bootstrap/js/bootstrap.min.js"></script>
+	<!--Vue-->
+	<script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+	<script type="text/javascript" src="../JS/login.js"> </script>
+
+	<!--自定义js-->
+	<script  type="text/javascript" src="../JS/Index.js"></script>
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<ul class="navbar-nav">
+			<li class="nav-item active">
+				<a class="btn btn-link" type="button" href="login.html">登录</a>
+			</li>
+			<li class="nav-item active">
+				<a class="btn btn-link" href="register.html">注册</a>
+			</li>
+			<li class="nav-item active">
+				<a class="btn btn-link" onclick="getOrder()">我的订单</a>
+			</li>
+			<li class="nav-item active">
+				<a class="btn btn-link" onclick="loginout2()">退出</a>
+			</li>
+			<li class="nav-item active">
+				<a class="btn btn-link" href="index.html">首页</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link disabled" id="dis_name">Disabled</a>
+			</li>
+		</ul>
+	</nav>
+	<div class="container mt-3">
+		<div class="row clearfix">
+			<div class="col-md-3 column">
+				<img src="Image/logo1.png" class="rounded" alt="Cinque Terre">
+			</div>
+			<div class="col-md-6 column">
+				<div class="input-group search">
+					<input id="searb" type="text" class="form-control" placeholder="请输入你要检索的书名"style="padding: 20px">
+					<span onclick="listsearch()" style="font-family: 微软雅黑;" class="input-group-text">
+                 搜索
+                    </span>
+				</div>
+			</div>
+			<div class="col-md-3" >
+				<a onclick="toScar()">
+					<button class="btn btn-danger" style="font-family: 微软雅黑;font-size: 30px" >
+						<i class="fa fa-truck" style="font-size:48px;color:black"></i>&nbsp;我的书包
+					</button>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="nav" style="border-bottom: #cc0000">
+		<div class="card text-black" style="font-size:20px;border-bottom: #cc0000;background-color: #cc0000; border-top-right-radius: 25px; width: 285px;margin-left: 15px">
+			<div class="card-body" style="font-family: 微软雅黑;">全部图书分类 </div>
+		</div>
+		<div class="col-md-10 column marquee">
+			<marquee  scrollamount="3"><span style="font-family: 微软雅黑;" class="glyphicon glyphicon-bullhorn"> 系统公告：本系统今晚十点进行系统升级，带来不便敬请谅解！</span></marquee>
+		</div>
+	</div>
+	<div class="col-md" style="width: 3000px">
+		<div class="type-box row clearfix collapse on " id="typeMenu" >
+			<dl>
+				<dt>文学类:</dt>
+				<dd><a href="">文学类二级标题</a></dd>
+				<dd><a href="">文学类二级标题</a></dd>
+				<dd><a href="">文学类二级标题</a></dd>
+				<dd><a href="">文学类二级标题</a></dd>
+				<dd><a href="">文学类二级标题</a></dd>
+			</dl>
+			<dl>
+				<dt>文学类:</dt>
+				<dd><a href="">文学类二级标题</a></dd>
+				<dd><a href="">文学类二级标题</a></dd>
+				<dd><a href="">文学类二级标题</a></dd>
+				<dd><a href="">文学类二级标题</a></dd>
+				<dd><a href="">文学类二级标题</a></dd>
+			</dl>
+			<dl>
+				<dt>文学类:</dt>
+				<dd><a href="">文学类二级标题</a></dd>
+				<dd><a href="">文学类二级标题</a></dd>
+				<dd><a href="">文学类二级标题</a></dd>
+				<dd><a href="">文学类二级标题</a></dd>
+				<dd><a href="">文学类二级标题</a></dd>
+			</dl>
+		</div>
+		<div id="box" class="row-cols-1">
+			<dl>
+				<dt>价格：</dt>
+				<dd><button  onclick="forprice(id)" id="10-50" style="height: 19px;background-color: white;border: white solid 1px"><a>0-50</a></button></dd>
+				<dd ><button onclick="forprice(id)" id="50-90" style="height: 19px;background-color: white;border: white solid 1px"> 50-90</button></dd>
+				<dd ><button onclick="forprice(id)" id="90以上" style="height: 19px;background-color: white;border: white solid 1px">>90</button></dd>
+			</dl>
+			<dl class="row-cols-1" style="border: none">
+				<dt>出版社：</dt>
+				<dd>清华大学出版社</dd>
+				<dd>上海人民出版社</dd>
+				<dd>重庆出版社</dd>
+				<dd>长江出版社</dd>
+				<dd>南海出版公司</dd>
+				<dd>北京联合出版有限责任公司</dd>
+			</dl>
+			<dl class="select" style="height:55px;border-bottom-width: 0px;">
+				<dt>已选条件：</dt>
+			</dl>
+		</div>
+		<div style="text-align: center" class="row">
+			<div class="row" style=" margin-left: 15px;height: 40px; border-bottom:1px solid #b3b7bb; background-color: white;width: 2000px">
+				<ul class="breadcrumb" style="height: 100%">
+					<li>
+						<a href="index.html">首页</a>
+					</li>
+					<li class="active">
+						/筛选结果
+					</li>
+				</ul>
+				<div class="row" style="margin-left:500px;height: 100%">
+					<div class="container" style="width: 100%">
+						<ul class="pagination">
+							<li class="page-item active"><a class="page-link" onclick="listearly()" >上一页</a></li>
+							<li class="page-item" onclick="" id = "ls1"></li>
+							<li class="page-item "id = "ls2"></li>
+							<li class="page-item" id = "ls3"></li>
+							<li class="page-item" onclick="listnext()"><a class="page-link" >下一页</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3" style="margin-top: 5px" >
+				<a >
+					<img id = "de1" style="margin-left:30px;height: 300px" src="Image/default.jpg" />
+					<h4 id="dde1">
+						无
+					</h4>
+					<p id = "dee1">0</p>
+				</a>
+				<div class="row" style="margin-left: 129px">
+					<a >
+						<button id="dl1" onclick="listincar(id)" class="btn btn-danger">加入书包</button>
+					</a>
+					<a id="dd1" onclick="listpay(id)" style="margin-left: 10px"  class="btn btn-warning">立即购买</a>
+				</div>
+			</div>
+			<div class="col-md-3 " style="margin-top: 5px">
+				<a >
+					<img id = "de2"style="height: 300px" src="Image/default.jpg" />
+					<h4 id="dde2">
+						无
+					</h4>
+					<p id = "dee2">0</p>
+				</a>
+				<div class="row" style="margin-left: 129px">
+					<a >
+						<button id="dl2" onclick="listincar(id)"class="btn btn-danger">加入书包</button>
+					</a>
+					<a id="dd2" onclick="listpay(id)"style="margin-left: 10px"  class="btn btn-warning">立即购买</a>
+				</div>
+			</div>
+			<div class="col-md-3" style="margin-top: 5px">
+				<a >
+					<img id = "de3"style="height: 300px" src="Image/default.jpg" />
+					<h4 id="dde3">
+						无
+					</h4>
+					<p id = "dee3">0</p>
+				</a>
+				<div class="row" style="margin-left: 129px">
+					<a >
+						<button id="dl3" onclick="listincar(id)" class="btn btn-danger">加入书包</button>
+					</a>
+					<a id="dd3" onclick="listpay(id)"style="margin-left: 10px" class="btn btn-warning">立即购买</a>
+				</div>
+			</div>
+			<div class="col-md-3 " style="margin-top: 5px">
+				<a >
+					<img  id = "de4"style="height: 300px"  src="Image/default.jpg" />
+					<h4 id="dde4">
+						无
+					</h4>
+					<p id = "dee4">0</p>
+				</a>
+				<div class="row" style="margin-left: 129px">
+					<a >
+						<button id="dl4" onclick="listincar(id)" class="btn btn-danger">加入书包</button>
+					</a>
+					<a id="dd4" onclick="listpay(id)"style="margin-left: 10px" class="btn btn-warning">立即购买</a>
+				</div>
+			</div>
+			<div class="col-md-3 " style="margin-top: 5px">
+				<a >
+					<img id = "de5"style="height: 300px"  src="Image/default.jpg" />
+					<h4 id="dde5">
+						无
+					</h4>
+					<p id = "dee5">0</p>
+				</a>
+				<div class="row" style="margin-left: 129px">
+					<a >
+						<button id="dl5" onclick="listincar(id)"class="btn btn-danger">加入书包</button>
+					</a>
+					<a id="dd5" onclick="listpay(id)"style="margin-left: 10px"  class="btn btn-warning">立即购买</a>
+				</div>
+			</div>
+			<div class="col-md-3 " style="margin-top: 5px">
+				<a >
+					<img id = "de6" style="height: 300px"  src="Image/default.jpg" />
+					<h4 id="dde6">
+						无
+					</h4>
+					<p id = "dee6">0</p>
+				</a>
+				<div class="row" style="margin-left: 129px">
+					<a >
+						<button id="dl6" onclick="listincar(id)"class="btn btn-danger">加入书包</button>
+					</a>
+					<a id="dd6" onclick="listpay(id)"style="margin-left: 10px"  class="btn btn-warning">立即购买</a>
+				</div>
+			</div>
+			<div class="col-md-3 " style="margin-top: 5px">
+				<a >
+					<img id = "de7"  style="height: 300px"  src="Image/default.jpg" />
+					<h4 id="dde7">
+						无
+					</h4>
+					<p id = "dee7">0</p>
+				</a>
+				<div class="row" style="margin-left: 129px">
+					<a >
+						<button id="dl7" onclick="listincar(id)" class="btn btn-danger">加入书包</button>
+					</a>
+					<a  id="dd7" onclick="listpay(id)"style="margin-left: 10px"  class="btn btn-warning">立即购买</a>
+				</div>
+			</div>	<div class="col-md-3 " style="margin-top: 5px">
+			<a >
+				<img id = "de8" style="height: 300px"  src="Image/default.jpg" />
+				<h4 id="dde8">
+					无
+				</h4>
+				<p id = "dee8">0</p>
+			</a>
+			<div class="row" style="margin-left: 129px">
+				<a >
+					<button id="dl8" onclick="listincar(id)" class="btn btn-danger">加入书包</button>
+				</a>
+				<a id="dd8" onclick="listpay(id)"style="margin-left: 10px" class="btn btn-warning">立即购买</a>
+			</div>
+		</div>
+		</div>
+	</div>
+
+		<div style="border-top: 2px solid #cc0000;margin-top: 5px;text-align: center" class="row-cols-1">
+			<div class="row">
+				<div class="col-md-3 ">
+					<img style="border-radius: 50%;" src="Image/icon_1_17.png">
+					品目繁多 愉悦购物
+				</div>
+				<div class="col-md-3 ">
+					<img style="border-radius: 50%;"src="Image/icon_1_20.png">
+					正品保障 天天低价
+				</div>
+				<div class="col-md-3 ">
+					<img style="border-radius: 50%;" src="Image/icon_1_23.png">
+					极速物流 特色定制
+				</div>
+				<div class="col-md-3 ">
+					<img style="border-radius: 50%;"  src="Image/icon_1_25.png">
+					优质服务 以客为尊
+				</div>
+			</div>
+			<div style="text-align: center">
+				<p>
+					<span>关于我们</span>|
+					<span>联系我们</span>|
+					<span>加我我们</span>|
+					<span>友情链接</span>
+				</p>
+			</div>
+		</div>
+</body>
+<script type="text/javascript" src="../JS/login.js"> </script>
+<script type="text/javascript" src="../JS/index.js"> </script>
+<script type="text/javascript" src="../JS/page.js"></script>
+</html>
+<script>
+	getUserinfo()
+	getindex1()
+	getindex2()
+	listgetshow()
+	getalllist()
+	var dls = document.querySelectorAll('dl:not(.select)');
+	var selected=document.querySelector('.select');
+
+	for (var i = 0; i < dls.length; i++) {
+			dls[i].mark=false;	//给每一行的dl标签添加一条属性，用于对应下面的dd标签。我们约定如果这个属性的值为true表示对应的标签没有创建。如果值为false表示对应的标签已经创建了
+			select(i);
+		}
+
+		function select(n) {
+			var dds = dls[n].querySelectorAll('dd');
+			var prev=null;
+			var dd=null;	//每一行都需要创建一个dd标签，放到这里是为了如果标签已经被创建了，通过这个变量能够找到这个标签
+
+			for (var i = 0; i < dds.length; i++) {
+				dds[i].onclick = function () {
+					//给当前点击的添加一个高亮
+					//prev && (prev.className = '');
+
+					if(prev){
+						prev.className = ''
+					}
+
+					this.className = 'active';
+
+					prev = this;
+
+
+					//创建dd标签
+					var parent=this.parentNode;
+					if(!parent.mark){	//这个条件满足说明对应的dd标签还没有创建
+						dd=document.createElement('dd');
+						dd.innerHTML=this.innerHTML;
+						selected.appendChild(dd);
+
+						parent.mark=true;
+						
+					}else{
+						//走这里的时候说明对应的标签已经创建了，只需要把内容修改了就可以了
+						dd.innerHTML=this.innerHTML;
+					}
+					
+					var span=document.createElement('span');
+					var This=this;
+					span.innerHTML='X';
+					span.onclick=function(){
+						//alert(1);
+						/*
+							点击关闭后要做的事情
+								1、移除掉dd
+								2、把上面点击的那个class去掉
+								3、父级身上的mark属性要更新
+								*/
+								selected.removeChild(dd);
+								This.className='';
+								parent.mark=false;
+							};
+							dd.appendChild(span);
+						};
+					}
+				}
+			</script>
+			<style>
+
+				dl,
+				dd {
+					margin: 0;
+				}
+
+				#box {
+					background: rgba(255, 255, 255, 0.8);
+					box-shadow: 0 0 10px rgba(73,66,66,.1);
+					border: 1px solid #E5E5E5;
+				}
+
+				#box dl {
+					height: 50px;
+					line-height: 50px;
+					border-bottom: 1px dashed #dadada;
+					margin: 0 20px;
+					display: block;
+				}
+
+				#box dt {
+					display: inline-block;
+					vertical-align: middle;
+					color: #8a8a8a;
+				}
+
+				#box dd {
+					display: inline-block;
+					vertical-align: middle;
+					color: #252525;
+					margin: 0 10px;
+					font-size: 14px;
+					cursor: pointer;
+				}
+
+				#box dd.active {
+					color: var(--color);
+					font-weight: bold;
+				}
+
+				#box dl.select {
+					background: #efefef;
+					margin: 0;
+					padding: 0 20px;
+				}
+
+				#box dl.select dd{
+					border: 1px solid var(--color);
+					height: 25px;
+					line-height: 25px;
+					margin-top: 13px;
+					padding: 0 2px 0 10px;
+					border-radius: 3px;background-color: #fff;
+				}
+				#box dl.select dd span{
+					width: 20px;
+					height: 20px;
+					display: inline-block;
+					text-align: center;
+					line-height: 20px;
+					background: #c4284d;
+					color: #fff;
+					margin-left: 10px;
+					cursor: pointer;border-radius: 5px;
+				}
+			</style>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zpp.demo.Dao.searchBook">
+    <resultMap id="searb" type="Bookinfo">
+        <result property="book_name" column="book_name"/>
+        <result property="book_price" column="book_price"/>
+        <result property="book_url" column="book_url"/>
+        <result property="book_where" column="book_where"/>
+    </resultMap>
+    <select id="fornamegetbook" resultMap="searb" parameterType="String">
+        select  book_name,book_price,book_url,book_where from book_info where  book_name like #{name}
+    </select>
+
+    <select id="forpricegetbook" resultMap="searb" parameterType="Integer">
+        select  book_name,book_price,book_url,book_where from book_info where book_price > #{min}
+        <if test="max != 0">
+            and book_price &lt; #{max}
+        </if>
+    </select>
+</mapper>

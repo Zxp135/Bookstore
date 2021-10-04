@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zpp.demo.Dao.Ulogin">
+
+    <!--根据用户名查询密码 -->
+  <select id="ulogin" parameterType="String" resultType="String">
+    select password from user_up where username = #{username}
+  </select>
+    <!--获取id-->
+    <select id="getid" parameterType="String" resultType="String">
+        select u_id from user_up where username = #{username}
+    </select>
+    <!--注册-->
+    <insert id="uregin2" parameterType="U_info">
+        insert into u_info(sex,e_mail,u_phone,u_id) values(#{sex},#{e_mail},#{u_phone},#{u_id})
+    </insert>
+    <insert id="uregin1" parameterType="U_up" >
+        insert into user_up(username,password,u_id) values (#{username},#{password},#{u_id})
+    </insert>
+    <select id="getname" parameterType="String" resultType="Integer">
+        select id from user_up where username = #{uid}
+    </select>
+</mapper>

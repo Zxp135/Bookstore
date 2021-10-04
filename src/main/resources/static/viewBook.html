@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>书籍详情</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+	<!--  Bootstrap4 核心 CSS 文件 -->
+	<link type="text/css" rel="stylesheet" href="Resource/bootstrap/css/bootstrap.min.css">
+	<link type="text/css" rel="stylesheet" href="Resource/bootstrap/css/bootstrap-grid.min.css">
+	<link type="text/css" rel="stylesheet" href="Resource/bootstrap/css/bootstrap-reboot.min.css">
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script type="text/javascript" src="Resource/js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+	<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+	<script type="text/javascript" src="Resource/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+	<script type="text/javascript" src="Resource/bootstrap/js/bootstrap.min.js"></script>
+	<!--Vue-->
+	<script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+	<script type="text/javascript" src="../JS/login.js"> </script>
+	<script type="text/javascript" src="../JS/index.js"> </script>
+	<script type="text/javascript" src="../JS/page.js"></script>
+</head>
+<style>
+	.body ul.breadcrumb{
+		font-size: 16px;
+		font-weight: bolder;
+		padding: 20px 0px 10px 50px;
+		margin-bottom: 0px;
+		background: #fff;
+		border-radius: 0px;
+		border-bottom: 1px solid #eee;
+	}
+	.body ul.breadcrumb a{
+		color: #2c49e5 !important;
+	}
+	dl{
+		clear: left;
+	}
+	dd,dt{
+		float: left;
+
+	}
+</style>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<ul class="navbar-nav">
+		<li class="nav-item active">
+			<a class="btn btn-link" type="button" href="login.html">登录</a>
+		</li>
+		<li class="nav-item active">
+			<a class="btn btn-link" href="register.html">注册</a>
+		</li>
+		<li class="nav-item active">
+			<a class="btn btn-link" href="index.html">首页</a>
+		</li>
+		<li class="nav-item active">
+			<a class="btn btn-link" onclick="getOrder()">我的订单</a>
+		</li>
+		<li class="nav-item active">
+			<a class="btn btn-link" onclick="loginout()">退出</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link disabled" id="dis_name">Disabled</a>
+		</li>
+	</ul>
+</nav>
+<div class="container mt-3">
+	<div class="row clearfix">
+		<div class="col-md-3 column">
+			<img src="Image/logo1.png" class="rounded" alt="Cinque Terre">
+		</div>
+		<div class="col-md-6 column">
+			<div class="input-group search">
+				<input type="text" class="form-control" placeholder="请输入你要检索的书名"style="padding: 20px">
+				<span style="font-family: 微软雅黑;" class="input-group-text">
+                 搜索
+                    </span>
+			</div>
+		</div>
+		<div class="col-md-3" >
+			<a onclick="toScar()">
+				<button class="btn btn-danger" style="font-family: 微软雅黑;font-size: 30px" >
+					<i class="fa fa-truck" style="font-size:48px;color:black"></i>&nbsp;我的书包
+				</button>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="row" style="border-bottom: 2px solid #cc0000">
+	<div class="card text-black" style=" background-color: #cc0000; border-top-right-radius: 25px; width: 285px;margin-left: 25px">
+		<div class="card-body" style="font-family: 微软雅黑;">书籍详情 </div>
+	</div>
+	<div class="col-md-10 column marquee">
+		<marquee  scrollamount="3"><span style="font-family: 微软雅黑;" class="glyphicon glyphicon-bullhorn"> 系统公告：本系统今晚十点进行系统升级，带来不便敬请谅解！</span></marquee>
+	</div>
+</div>
+	<div class="row" style="background-color: white;width:1950px;height: 600px">
+			<div class="col-md-5" style="border: 1px solid black;margin-left:120px;width: 400px;height: 607px;border:1px solid darkgray;">
+				<div class="col-md-8" style="margin-left: 100px">
+					<img id="vim1" class="img-thumbnail" src="Image/book1.jpg">
+				</div>
+				<div class="row" style="margin-top: 20px">
+					<div class="col-sm-6 col-md-3">
+						<img id="vim2" class="img-thumbnail hover" src="Image/book1.jpg">
+					</div>
+					<div class="col-sm-6 col-md-3">
+						<img id="vim3" class="img-thumbnail" src="Image/book1.jpg">
+
+					</div>
+					<div class="col-sm-6 col-md-3">
+						<img id="vim4" class="img-thumbnail" src="Image/book1.jpg">
+
+					</div>
+					<div class="col-sm-6 col-md-3">
+						<img id="vim5"class="img-thumbnail" src="Image/book1.jpg">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5" style="font-size: 20px;font-family:宋体;font-weight:700;margin-left:100px;background-color:white;height: 600px">
+				<div class="row-cols-1" style="margin-top: 100px">
+					<label class="col-md-3" >书名：</label>
+					<span id="sp1">javaEE 轻量级框架</span>
+				</div>
+				<div class="row-cols-1 ">
+					<label class="col-md-3 ">价格：</label>
+					<span id="sp2">125.9</span>
+				</div>
+				<div class="row-cols-1 ">
+					<label class="col-md-3 ">出版社：</label>
+					<span id="sp3"></span>
+				</div>
+				<div class="row-cols-1">
+					<label class="col-md-3">服务：</label>
+					<img src="Image/service_03.png">
+					<small>分期付款</small>
+					<img src="Image/service_05.png">
+					<small>免运费</small>
+					<img src="Image/service_07.png">
+					<small>送货上门</small>
+					<img src="Image/service_09.png">
+					<small>7天无理由退换</small>
+				</div>
+				<hr>
+				<div class="row-cols-1" style="background-color: #cc0000">
+					<div id="box" >
+						<dl>
+							<dt class="col-md-3" style="" >包装：</dt>
+							<dd style="	margin-left: 10px;">简单装</dd>
+							<dd style="	margin-left: 10px;">升级装</dd>
+							<dd  style="	margin-left: 10px;">精品装</dd>
+							<dd style="	margin-left: 10px;">至尊装</dd>
+						</dl>
+					</div>
+				</div>
+				<div class="row" style=" margin-left:200px;width: 100%;">
+					<a>
+						<button onclick="viewincar()" style="font-size:20px;"class="btn btn-danger">加入书包</button></a>
+						<p class="col-md-2"></p>
+						<a>
+							<button  onclick="buy2()" style="font-size:20px;" class="btn btn-warning">立即购买</button>
+						</a>
+					</div>
+				</div>
+
+	</div>
+<div style="border-top: 2px solid #cc0000;margin-top: 5px;text-align: center" class="row-cols-1">
+	<div class="row">
+		<div class="col-md-3 ">
+			<img style="border-radius: 50%;" src="Image/icon_1_17.png">
+			品目繁多 愉悦购物
+		</div>
+		<div class="col-md-3 ">
+			<img style="border-radius: 50%;"src="Image/icon_1_20.png">
+			正品保障 天天低价
+		</div>
+		<div class="col-md-3 ">
+			<img style="border-radius: 50%;" src="Image/icon_1_23.png">
+			极速物流 特色定制
+		</div>
+		<div class="col-md-3 ">
+			<img style="border-radius: 50%;"  src="Image/icon_1_25.png">
+			优质服务 以客为尊
+		</div>
+	</div>
+	<div style="text-align: center">
+		<p>
+			<span>关于我们</span>|
+			<span>联系我们</span>|
+			<span>加我我们</span>|
+			<span>友情链接</span>
+		</p>
+	</div>
+</div>
+</body>
+<script>
+	getUserinfo()
+	getview()
+	gettoken()
+	getnnn()
+</script>
+</html>

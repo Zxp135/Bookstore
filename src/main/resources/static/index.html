@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html style="padding: 0;margin: 0" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>书城首页</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <!--  Bootstrap4 核心 CSS 文件 -->
+    <link type="text/css" rel="stylesheet" href="Resource/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="Resource/bootstrap/css/bootstrap-grid.min.css">
+    <link type="text/css" rel="stylesheet" href="Resource/bootstrap/css/bootstrap-reboot.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script type="text/javascript" src="Resource/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+    <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+    <script type="text/javascript" src="Resource/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script type="text/javascript" src="Resource/bootstrap/js/bootstrap.min.js"></script>
+    <!--Vue-->
+    <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script type="text/javascript" src="../JS/login.js"> </script>
+    <script type="text/javascript" src="../JS/page.js"></script>
+    <!--自定义js-->
+    <script  type="text/javascript" src="../JS/Index.js"></script>
+</head>
+<body >
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="btn btn-link" type="button" href="login.html">登录</a>
+        </li>
+        <li class="nav-item active">
+            <a class="btn btn-link" href="register.html">注册</a>
+        </li>
+        <li class="nav-item active">
+            <a class="btn btn-link" onclick="getOrder()">我的订单</a>
+        </li>
+        <li class="nav-item active">
+            <a class="btn btn-link" onclick="loginout2()" id="U_out" href="#">退出</a>
+        </li>
+        <li class="nav-item">
+            <a id="dis_name" class="nav-link disabled" ></a>
+        </li>
+    </ul>
+</nav>
+<div class="container mt-3">
+    <div class="row clearfix">
+        <div class="col-md-3 column">
+            <img src="Image/logo1.png" class="rounded" alt="Cinque Terre">
+        </div>
+        <div class="col-md-6 column">
+            <div class="input-group search">
+                <input id="sear" type="text" class="form-control" placeholder="请输入你要检索的书名"style="padding: 20px">
+                <span onclick="indexsearch()" style="font-family: 微软雅黑;" class="input-group-text">
+                 搜索
+                    </span>
+            </div>
+        </div>
+        <div class="col-md-3" >
+            <a onclick="toScar()">
+                <button  class="btn btn-danger" style="font-family: 微软雅黑;font-size: 30px" >
+                    <i class="fa fa-truck" style="font-size:48px;color:black"></i>&nbsp;我的书包
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="nav">
+    <div class="card text-black" style="background-color: #cc0000; border-top-right-radius: 25px; width: 285px;margin-left: 25px">
+        <div class="card-body" style="font-family: 微软雅黑;">全部图书分类 </div>
+    </div>
+    <div class="col-md-10 column marquee">
+        <marquee  scrollamount="3"><span style="font-family: 微软雅黑;" class="glyphicon glyphicon-bullhorn"> 系统公告：本系统今晚十点进行系统升级，带来不便敬请谅解！</span></marquee>
+    </div>
+</div>
+    <div class="row clearfix" style="margin-left: 10px">
+        <div class="col-md-2 column menu" >
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header"><a class="card-link" data-toggle="collapse" href="#collapseOne">文学类</a></div>
+                    <div  id="collapseOne" class="collapse" data-parent="#accordion" >
+                    <div  class="card-body" style="height: 50px">
+                        <a onclick="wait()"   class="card-link">诗歌</a>
+                        <a  onclick="wait()"  class="card-link">散文</a>
+                        <a onclick="wait()"  class="card-link"> 小说</a>
+                    </div>
+                    </div>
+            </div>
+            <div class="card">
+                <div class="card-header"> <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">教育类</a></div>
+                <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                    <div  class="card-body">
+                        <a onclick="wait()" class="card-link" >学前</a>
+                        <a onclick="wait()" class="card-link">小学</a>
+                        <a onclick="wait()" class="card-link">初中</a>
+                        <a onclick="wait()" class="card-link">高中</a>
+                        <a onclick="wait()" class="card-link">大学</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header"><a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">计算机类</a></div>
+                <div  id="collapseThree" class="collapse" data-parent="#accordion">
+                    <div  class="card-body">
+                        <a href="list.html">JAVA</a>
+                        <a href="list.html">JAVASCRIPT</a>
+                        <a href="list.html">PHP</a>
+                        <a href="list.html">C++</a>
+                        <a href="list.html">Zigbee</a>
+                        <a href="list.html">Android</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header"> <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">儿童类</a></div>
+                    <div id="collapseFour"  class="collapse" data-parent="#accordion">
+                    <div  class="card-body">
+                        <a onclick="wait()" class="card-link">益智</a>
+                        <a onclick="wait()" class="card-link">生活</a>
+                        <a onclick="wait()" class="card-link">特长</a>
+                        <a onclick="wait()" class="card-link">画图</a>
+                        <a onclick="wait()"class="card-link" >故事</a>
+                    </div>
+                    </div>
+            </div>
+            <div class="card">
+                <div class="card-header"><a class="collapsed card-link" data-toggle="collapse" href="#collapseFive"> 漫画类</a></div>
+                   <div id="collapseFive" class="collapse" data-parent="#accordion">
+                    <div  class="card-body">
+                        <a onclick="wait()"class="card-link" >科幻</a>
+                        <a onclick="wait()" class="card-link">冒险</a>
+                        <a onclick="wait()" class="card-link">灾难</a>
+                        <a onclick="wait()"class="card-link" >语言</a>
+                        <a onclick="wait()"class="card-link" >神话</a>
+                    </div>
+                   </div>
+            </div>
+            <div class="card">
+               <div class="card-header"> <a class="collapsed card-link" data-toggle="collapse" href="#collapseSix">期刊类</a></div>
+                    <div id="collapseSix" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        <a onclick="wait()"class="card-link" >农业</a>
+                        <a onclick="wait()" class="card-link">金融</a>
+                        <a onclick="wait()" class="card-link">医学</a>
+                        <a onclick="wait()"class="card-link" >文学</a>
+                        <a onclick="wait()" class="card-link">环艺</a>
+                    </div>
+                    </div>
+            </div>
+            <div class="card">
+             <div class="card-header"><a class="card-link" data-toggle="collapse" href="#collapseSeven">工具书类</a></div>
+                <div id="collapseSeven" class="collapse" data-parent="#accordion">
+                    <div  class="card-body">
+                        <a onclick="wait()" class="card-link">图像</a>
+                        <a onclick="wait()" class="card-link">字典</a>
+                        <a onclick="wait()" class="card-link">股市</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="col-md-8">
+            <div class="carousel slide" data-slide="carousel" id="demo">
+                <!-- 指示符 -->
+                <ul class="carousel-indicators">
+                    <li data-target="#demo" data-slide-to="0" class="active"></li>
+                    <li data-target="#demo" data-slide-to="1"></li>
+                    <li data-target="#demo" data-slide-to="2"></li>
+                </ul>
+                <div class="carousel-inner" >
+                    <div class="carousel-item active" >
+                        <img alt="" style="width: 100%;height: 390px" src="Image/index2.jpg" />
+                    </div>
+                    <div class="carousel-item" >
+                        <img alt="" style="width: 100%;height: 390px" src="Image/index2.jpg" />
+                    </div>
+                    <div class="carousel-item" >
+                        <img alt=""  style="width: 100%;height:390px" src="Image/index2.jpg" />
+                    </div>
+                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#demo" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 column message">
+            <div class="row">
+                <div class="col-md">
+                    <img src="Image/logo1.png" class="rounded-circle">
+                </div>
+                <div style="font-family: 微软雅黑" class="col-md-9 column">
+                    <p>hi~,欢迎来逛网上书城</p>
+                </div>
+            </div>
+            <div class="row inner-line" style="margin-right: 1px">
+                <div class="col-md-6 column ">
+                    <button style="width: 100%" class="btn btn-info">新人福利</button>
+                </div>
+                <div class="col-md-6 column " >
+                    <button style="width: 100% ;" class="btn btn-info">会员</button>
+                </div>
+            </div>
+            <div style="margin-top: 10px" class="row inner-line">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-action">
+                        <div style="width: 100%">书只看不卖</div>
+                    </li>
+                    <li class="list-group-item list-group-item-action">
+                        <div style="width: 100%">书只看不卖</div>
+                    </li>
+                    <li class="list-group-item list-group-item-action">
+                        <div style="width: 200px">书只看不卖</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md" style="margin-left:10px;border-left: black" >
+            <div class="card bg-danger text-white" style="height: 350px;" >
+            <div class="row-cols-1" style="text-align:center;font-family: 微软雅黑;font-size: 45px">杰普秒杀</div>
+            <div class="row-cols-1" style="font-size: 20px;font-family: 宋体;padding-top: 2em">距离结束还剩</div>
+            <div style="padding-left: 65px;padding-top: 3em"><i class="fa fa-legal" style="font-size:45px;color:black"></i></div>
+            <div  class="row-cols-1" style="margin-top:80px;padding-left: 65px;font-size: 25px">
+                <span style="font-size: 30px" class="se-txt">00</span>:
+                <span style="font-size: 30px" class="se-txt">00</span>:
+                <span style="font-size: 30px" class="se-txt">00</span>
+            </div>
+            </div>
+        </div>
+        <div class="col-md" style="border-right: 1px solid black">
+            <a>
+                <img  onclick="toview(id)" id = "im1" src="#" style="width: 100%">
+            </a>
+            <div class="price" style="text-align: center;border-top-right-radius: 30px;border-bottom-left-radius: 30px;border:4px solid #cc0000 ;">
+                <span id = "s1"style="width:100%;font-size: 35px";>0</span>
+            </div>
+        </div>
+        <div class="col-md"  style="border-right: 1px solid black">
+            <a>
+                <img  onclick="toview(id)" id = "im2" src="#" style="width: 100%;border-bottom-left-radius: 30px;text-align: center">
+            </a>
+            <div class="row-cols-1" style="border-top-right-radius: 30px;text-align: center;border: 4px solid #cc0000 ;border-bottom-left-radius: 30px;">
+                <span id = "s2"style="font-size: 35px; ">0</span>
+            </div>
+        </div>
+        <div class="col-md"  style="border-right: 1px solid black">
+            <a>
+                <img   onclick="toview(id)" id = "im3" src="#" style="width: 100%">
+            </a>
+            <div class="row-cols-1" style="border-top-right-radius: 30px;text-align: center;border: 4px solid #cc0000 ;border-bottom-left-radius: 30px;">
+                <span id = "s3"style="font-size: 35px;">0</span>
+            </div>
+        </div>
+        <div class="col-md"  style="border-right: 1px solid black">
+            <a >
+                <img   onclick="toview(id)" id = "im4" src="#" style="width: 100%">
+            </a>
+            <div class="row-cols-1" style="border-top-right-radius: 30px;text-align: center;border: 4px solid #cc0000 ;border-bottom-left-radius: 30px;">
+                <span id = "s4" style="font-size: 35px;">0</span>
+            </div>
+        </div>
+        <div class="col-md">
+            <a>
+                <img  onclick="toview(id)" id = "im5" src="#" style="width: 100%">
+            </a>
+            <div class="row-cols-1" style="margin-top:2px;border-top-right-radius: 30px;text-align: center;border: 4px solid #cc0000 ;border-bottom-left-radius: 30px;">
+                <span id = "s5" style="font-size: 35px;">0</span>
+            </div>
+        </div>
+    </div>
+    <div class="row-cols-6" style="border-bottom: 2px solid red;margin-top: 10px;">
+        <h3 style=" text-align:center;font-family: 微软雅黑;border: 1px solid #cc0000 ; margin-bottom: 0px;background-color: #cc0000;border-top-right-radius: 35px">发 现 好 书</h3>
+    </div>
+    <div class="row">
+        <div  class="col-md-2" style="margin-left: 140px">
+                <img onclick="toview(id)" id ="am1" style="width: 100px;width: 200px" src="Image/book1.jpg" />
+            <a href="#" >
+                <h4 id = "h1">
+                    JAVAEE轻量级框架
+                </h4>
+                <p id="p1">￥45.00</p>
+            </a>
+            <div  class="row">
+                <a  >
+                    <button  id="car1" onclick="incar(id)"class="btn btn-danger">加入书包</button>
+                </a>
+                <a style="margin-left: 15px" id="b1" onclick="buy(id)"  class="btn btn-warning">立即购买</a>
+            </div>
+        </div>
+        <div class="col-md-2" style="margin-left: 140px">
+
+                <img onclick="toview(id)" id ="am2" style="width: 100px;width: 200px;"  src="Image/book1.jpg" />
+            <a href=""> <h4 id = "h2">
+                    JAVAEE轻量级框架
+                </h4>
+                <p id="p2">￥45.00</p>
+            </a>
+            <div class="row">
+                <a >
+                    <button id="car2" onclick="incar(id)" class="btn btn-danger">加入书包</button>
+                </a>
+                <a style="margin-left: 15px" id="b2" onclick="buy(id)"  class="btn btn-warning">立即购买</a>
+            </div>
+        </div>
+        <div class="col-md-2" style="margin-left: 140px">
+
+                <img onclick="toview(id)" id ="am3" style="width: 100px;width: 200px"  src="Image/book1.jpg" />
+            <a href="">  <h4 id = "h3">
+                    JAVAEE轻量级框架
+                </h4>
+                <p id="p3">￥45.00</p>
+            </a>
+            <div class="row">
+                <a >
+                    <button id="car3" onclick="incar(id)" class="btn btn-danger">加入书包</button>
+                </a>
+                <a style="margin-left: 15px" id="b3" onclick="buy(id)" class="btn btn-warning">立即购买</a>
+            </div>
+        </div>
+        <div class="col-md-2" style="margin-left: 140px">
+
+                <img  onclick="toview(id)" id ="am4"style="width: 100px;width: 200px"  src="Image/book1.jpg" />
+            <a href="">   <h4 id = "h4">
+                    JAVAEE轻量级框架
+                </h4>
+                <p id="p4">￥45.00</p>
+            </a>
+            <div class="row">
+                <a >
+                    <button id="car4" onclick="incar(id)" class="btn btn-danger">加入书包</button>
+                </a>
+                <a style="margin-left: 15px" id="b4" onclick="buy(id)"  class="btn btn-warning">立即购买</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="border-top: 2px solid #cc0000;margin-top: 5px;text-align: center" class="row-cols-1">
+    <div class="row">
+        <div class="col-md-3 ">
+            <img style="border-radius: 50%;" src="Image/icon_1_17.png">
+            品目繁多 愉悦购物
+        </div>
+        <div class="col-md-3 ">
+            <img style="border-radius: 50%;"src="Image/icon_1_20.png">
+            正品保障 天天低价
+        </div>
+        <div class="col-md-3 ">
+            <img style="border-radius: 50%;" src="Image/icon_1_23.png">
+            极速物流 特色定制
+        </div>
+        <div class="col-md-3 ">
+            <img style="border-radius: 50%;"  src="Image/icon_1_25.png">
+            优质服务 以客为尊
+        </div>
+    </div>
+    <div style="text-align: center">
+        <p>
+            <span style="">关于我们</span>|
+            <span>联系我们</span>|
+            <span>加我我们</span>|
+            <span>友情链接</span>
+        </p>
+    </div>
+</div>
+
+</body>/
+<script type="text/javascript">
+    getUserinfo()
+    getindex1()
+    getindex2()
+    $(document).ready(function () {
+        var oDate = new Date();
+        var nowTime = oDate.getTime(); //现在的毫秒数
+        oDate.setDate(oDate.getDate() + 1); // 设定截止时间为第二天
+        var targetDate = new Date(oDate.toLocaleDateString());
+        run(targetDate);
+    });
+
+    function run(enddate) {
+        getDate(enddate);
+        setInterval("getDate('" + enddate + "')", 500);
+    }
+
+    function getDate(enddate) {
+        var oDate = new Date(); //获取日期对象
+
+        var nowTime = oDate.getTime(); //现在的毫秒数
+        var enddate = new Date(enddate);
+        var targetTime = enddate.getTime(); // 截止时间的毫秒数
+        var second = Math.floor((targetTime - nowTime) / 1000); //截止时间距离现在的秒数
+
+        var day = Math.floor(second / 24 * 60 * 60); //整数部分代表的是天；一天有24*60*60=86400秒 ；
+        second = second % 86400; //余数代表剩下的秒数；
+        var hour = Math.floor(second / 3600); //整数部分代表小时；
+        second %= 3600; //余数代表 剩下的秒数；
+        var minute = Math.floor(second / 60);
+        second %= 60;
+        var spanH = $('.se-txt')[0];
+        var spanM = $('.se-txt')[1];
+        var spanS = $('.se-txt')[2];
+
+        spanH.innerHTML = tow(hour);
+        spanM.innerHTML = tow(minute);
+        spanS.innerHTML = tow(second);
+    }
+
+    function tow(n) {
+        return n >= 0 && n < 10 ? '0' + n : '' + n;
+    }
+
+</script>
+</html>

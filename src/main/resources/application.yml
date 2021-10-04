@@ -1,0 +1,45 @@
+server:
+  port: 8088
+  netty:
+    connection-timeout: 3000
+  tomcat:
+    threads:
+      max: 50
+    uri-encoding: UTF-8
+spring:
+  transaction:
+    rollback-on-commit-failure: true
+  redis:
+    lettuce:
+      shutdown-timeout: 1000ms
+    port: 6379
+    host: localhost
+    jedis:
+      pool:
+        min-idle: 0
+        max-idle: 8
+        max-wait: -1ms
+        max-active: 100
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/book_store?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 456
+    druid:
+      filters: stat,wall,slf4j
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: admin
+        login-password: admin
+        min-idle: 5
+        initila-size: 5
+        max-active: 30
+        max-wait: 60000
+
+mybatis-plus:
+  type-aliases-package: com.zpp.demo.POJO
+  mapper-locations: classpath:Mapper/*
+  configuration:
+    map-underscore-to-camel-case: true

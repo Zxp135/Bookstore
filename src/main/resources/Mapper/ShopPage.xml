@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zpp.demo.Dao.ShopPage">
+    <select id="getindexbook" resultMap="p1" parameterType="Integer" >
+        select book_where,book_name,book_price,book_url from book_info where book_price > 60 limit #{start},5
+    </select>
+<resultMap id="p1" type="Bookinfo">
+    <result property="book_name" column="book_name"/>
+    <result property="book_price" column="book_price"/>
+    <result property="book_url" column="book_url"/>
+    <result property="book_where" column="book_where"/>
+</resultMap>
+    <select id="getindexbook1" resultMap="p1" parameterType="Integer"  >
+        select book_where, book_name,book_price,book_url from book_info where book_price &lt; 50 limit #{start},4
+    </select>
+   <select id="getbooknum" resultType="Integer" parameterType="String">
+       select book_num from book_info where book_name =  #{book_name}
+   </select>
+    <update id="upbook" parameterType="String" >
+    update book_info set book_num = #{book_num} where book_name = #{book_name}
+</update>
+ </mapper>
